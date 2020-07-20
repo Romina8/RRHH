@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "categoria")
 public class Categoria {
@@ -15,6 +17,8 @@ public class Categoria {
     @Column(name = "sueldo_base")
     private BigDecimal sueldoBase;
     @OneToMany(mappedBy = "categoria", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @JsonIgnore
     private List<Empleado> empleados;
 
     public int getCategoriaId() {
