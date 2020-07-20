@@ -1,9 +1,13 @@
 package ar.com.ada.api.rrhh.services;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ar.com.ada.api.rrhh.entities.Categoria;
+import ar.com.ada.api.rrhh.entities.Empleado;
 import ar.com.ada.api.rrhh.repos.CategoriaRepository;
 
 @Service
@@ -19,5 +23,27 @@ public class CategoriaService {
     public List<Categoria> buscarCategorias(){
 
         return repository.findAll();        
+    }
+
+    public List<Empleado> traerEmpleadosPorCategoria(int categoriaId){
+
+        Optional<Categoria> cOptional = repository.findById(categoriaId);
+
+        List<Empleado> listaVacia = new ArrayList<>();
+
+        if(cOptional.isPresent()){
+            return cOptional.get().getEmpleados();
+        }
+        return listaVacia;
+    }
+
+    public Categoria buscarCategoriaPor(int id){
+
+        Optional<Categoria> co = repository.findById(id);
+
+        if(co.isPresent()){
+            return co.get();
+        }
+        return null;
     }
 } 
